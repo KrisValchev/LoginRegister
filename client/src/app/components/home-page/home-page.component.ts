@@ -45,6 +45,7 @@ export class HomePageComponent {
   }
 
   logout() {
+    //when logging out setting signal to null and clearing local storage token
 localStorage.setItem('token','');
 this.authService.currentUserSig.set(null);
   }
