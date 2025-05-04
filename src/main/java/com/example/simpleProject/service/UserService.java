@@ -35,5 +35,6 @@ public class UserService {
     public List<User> getUsers(){
         return this.userRepository.findAll();
     }
+public User getUserById(long id){ return this.userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id));}
 
 }

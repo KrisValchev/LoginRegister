@@ -1,10 +1,11 @@
-import {Component, isStandalone} from '@angular/core';
+import {Component, inject, isStandalone} from '@angular/core';
 import {OnInit} from "@angular/core";
 import {Router, RouterLink} from "@angular/router";
-import {User} from "../../models/User";
 import {FormGroup, FormControl,  ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {RegisterService} from "../../services/register/register.service";
 import {NgIf} from "@angular/common";
+import {HttpClient} from "@angular/common/http";
+import {RegisterRequest} from "../../models/register-request.interface";
 
 //FormModule class for communication between html and ts of the component through variables
 
@@ -22,7 +23,13 @@ import {NgIf} from "@angular/common";
   styleUrl: './user-register.component.css'
 })
 export class UserRegisterComponent implements OnInit {
-  user: User = new User();
+  user: RegisterRequest={
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    address: ""
+  };
   error: string = "";
   email = new FormControl("")
   address = new FormControl("")
@@ -39,6 +46,8 @@ export class UserRegisterComponent implements OnInit {
     password: this.password,
     passwordConfirm: this.passwordConfirm
   });
+
+  http= inject(HttpClient);
 
   constructor(private registerService: RegisterService, private router: Router) {
 
