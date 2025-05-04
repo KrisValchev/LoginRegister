@@ -14,5 +14,14 @@ export class AuthService {
     //AuthResponse - logged in
     currentUserSig = signal<UserResponse | undefined | null>(undefined);
 
-
+     isTokenExpired(token: string): boolean {
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const expiry = payload.exp;
+            const now = Math.floor(Date.now() / 1000); // current time in seconds
+            return now >= expiry;
+        } catch (e) {
+            return true; // if there's any error, treat as expired
+        }
+    }
 }

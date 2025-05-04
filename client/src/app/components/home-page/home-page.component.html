@@ -1,3 +1,4 @@
+<div class="container">
 <p>This is the home page</p>
 <div *ngIf="authService.currentUserSig() === null">
   <a routerLink="/login">Login</a>
@@ -7,4 +8,5 @@
 <div *ngIf="authService.currentUserSig()">
   {{authService.currentUserSig()?.firstName + " " + authService.currentUserSig()?.lastName}}
   <span (click)="logout()">Logout</span>
+</div>
 </div>

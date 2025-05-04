@@ -25,19 +25,24 @@ export class HomePageComponent {
   ngOnInit() {
     const token = localStorage.getItem('token'); // or from a service holding the token
     if (token) {
-      this.http.get< UserResponse >("http://localhost:8080/api/users/loggedUser", {
-        headers: new HttpHeaders({
-          'Authorization': `Bearer ${token}`
-        })
-      }).subscribe({
-        next: (response) => {
-          this.authService.currentUserSig.set(response);
-        },
-        error: (err) => {
-          console.error('Error fetching logged user:', err);
+      if(!this.authService.isTokenExpired(token)) {
+        this.http.get<UserResponse>("http://localhost:8080/api/users/loggedUser", {
+          headers: new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+          })
+        }).subscribe({
+          next: (response) => {
+            this.authService.currentUserSig.set(response);
+          },
+          error: (err) => {
+            console.error('Error fetching logged user:', err);
 
-        }
-      });
+          }
+        });
+      }
+      else{
+        localStorage.removeItem('token');
+      }
     }
     else{
       this.authService.currentUserSig.set(null);
@@ -46,7 +51,7 @@ export class HomePageComponent {
 
   logout() {
     //when logging out setting signal to null and clearing local storage token
-localStorage.setItem('token','');
+localStorage.removeItem('token');
 this.authService.currentUserSig.set(null);
   }
 }

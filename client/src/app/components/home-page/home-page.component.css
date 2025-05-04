@@ -1,0 +1,36 @@
+
+*{
+  font-size: 50px;
+}
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #007bff;
+  margin: 8px 0;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+span {
+  margin-top: 10px;
+  color: #dc3545;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: bold;
+}
+
+span:hover {
+  text-decoration: underline;
+}
